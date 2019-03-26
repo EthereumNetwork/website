@@ -1,4 +1,6 @@
-# ethereum-network
+# Ethereum Network
+
+> The Hitchhiker's Guide to the Ethereum Blockchain
 
 ## Project setup
 ```

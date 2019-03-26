@@ -1,57 +1,70 @@
 {
-  "name": "ethereum-network",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "material-design-icons-iconfont": "^3.0.3",
-    "register-service-worker": "^1.6.2",
-    "roboto-fontface": "*",
-    "vue": "^2.6.6",
-    "vue-router": "^3.0.1",
-    "vuetify": "^1.5.5",
-    "vuex": "^3.0.1"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.5.0",
-    "@vue/cli-plugin-eslint": "^3.5.0",
-    "@vue/cli-plugin-pwa": "^3.5.1",
-    "@vue/cli-service": "^3.5.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1",
-    "vue-cli-plugin-vuetify": "^0.5.0",
-    "vue-template-compiler": "^2.5.21",
-    "vuetify-loader": "^1.0.5"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
+    "name": "ethereum-network",
+    "version": "0.1.0",
+    "description": "A community guide for the Ethereum Network",
+    "author": "Ethereum Network",
+    "license": "MPL-2.0",
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint"
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
+    "dependencies": {
+        "material-design-icons-iconfont": "^3.0.3",
+        "register-service-worker": "^1.6.2",
+        "roboto-fontface": "*",
+        "vue": "^2.6.6",
+        "vue-router": "^3.0.1",
+        "vuetify": "^1.5.5",
+        "vuex": "^3.0.1"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^3.5.0",
+        "@vue/cli-plugin-eslint": "^3.5.0",
+        "@vue/cli-plugin-pwa": "^3.5.1",
+        "@vue/cli-service": "^3.5.0",
+        "babel-eslint": "^10.0.1",
+        "eslint": "^5.8.0",
+        "eslint-plugin-vue": "^5.0.0",
+        "stylus": "^0.54.5",
+        "stylus-loader": "^3.0.1",
+        "vue-cli-plugin-vuetify": "^0.5.0",
+        "vue-template-compiler": "^2.5.21",
+        "vuetify-loader": "^1.0.5"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/EthereumNetwork/website.git"
+    },
+    "keywords": [
+        "Ethereum"
     ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+    "bugs": {
+        "url": "https://github.com/EthereumNetwork/website/issues"
+    },
+    "homepage": "https://ethereum.network",
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "eslint:recommended"
+        ],
+        "rules": {},
+        "parserOptions": {
+            "parser": "babel-eslint"
+        }
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 8"
+    ]
 }
