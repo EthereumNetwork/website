@@ -68,6 +68,6 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../node_modules/vuetify/src/stylus/main';
+  @import '../../node_modules/vuetify/src/stylus/main';
   @import 'css/main.css';
 </style>
