@@ -1,94 +1,107 @@
 {
-    "name": "ethereum-network",
-    "version": "0.1.0",
-    "description": "A community guide for the Ethereum Network",
-    "author": "Ethereum Network",
-    "license": "MPL-2.0",
-    "scripts": {
-        "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
-        "lint": "vue-cli-service lint",
-        "start": "nodemon ./src/server/bin/dev"
+  "name": "ethereum-network",
+  "version": "0.1.0",
+  "description": "A community guide for the Ethereum Network",
+  "author": "Ethereum Network",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "dev": "yarn serve & yarn start",
+    "start": "nodemon ./src/server/bin/dev"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "convict": "^5.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-list-routes": "^0.1.4",
+    "fs": "^0.0.1-security",
+    "helmet": "^3.18.0",
+    "lodash": "^4.17.11",
+    "material-design-icons-iconfont": "^3.0.3",
+    "method-override": "^3.0.0",
+    "morgan": "^1.9.1",
+    "register-service-worker": "^1.6.2",
+    "roboto-fontface": "*",
+    "vue": "^2.6.6",
+    "vue-router": "^3.0.1",
+    "vuetify": "^1.5.14",
+    "vuex": "^3.0.1",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.5.0",
+    "@vue/cli-plugin-eslint": "^3.5.0",
+    "@vue/cli-plugin-pwa": "^3.5.1",
+    "@vue/cli-service": "^3.5.0",
+    "babel-eslint": "^10.0.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "nodemon": "^1.19.0",
+    "prerender-spa-plugin": "^3.2.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "vue-cli-plugin-prerender-spa": "^1.1.5",
+    "vue-cli-plugin-vuetify": "^0.5.0",
+    "vue-template-compiler": "^2.5.21",
+    "vuetify-loader": "^1.0.5"
+  },
+  "vue": {
+    "pages": {
+      "index": {
+        "entry": "src/client/main.js"
+      }
     },
-    "dependencies": {
-        "body-parser": "^1.19.0",
-        "compression": "^1.7.4",
-        "convict": "^5.0.0",
-        "cors": "^2.8.5",
-        "express": "^4.16.4",
-        "express-list-routes": "^0.1.4",
-        "fs": "^0.0.1-security",
-        "helmet": "^3.18.0",
-        "lodash": "^4.17.11",
-        "material-design-icons-iconfont": "^3.0.3",
-        "method-override": "^3.0.0",
-        "morgan": "^1.9.1",
-        "register-service-worker": "^1.6.2",
-        "roboto-fontface": "*",
-        "vue": "^2.6.6",
-        "vue-router": "^3.0.1",
-        "vuetify": "^1.5.14",
-        "vuex": "^3.0.1",
-        "winston": "^3.2.1"
-    },
-    "devDependencies": {
-        "@vue/cli-plugin-babel": "^3.5.0",
-        "@vue/cli-plugin-eslint": "^3.5.0",
-        "@vue/cli-plugin-pwa": "^3.5.1",
-        "@vue/cli-service": "^3.5.0",
-        "babel-eslint": "^10.0.1",
-        "babel-polyfill": "^6.26.0",
-        "babel-preset-env": "^1.7.0",
-        "babel-register": "^6.26.0",
-        "eslint": "^5.8.0",
-        "eslint-plugin-vue": "^5.0.0",
-        "nodemon": "^1.19.0",
-        "stylus": "^0.54.5",
-        "stylus-loader": "^3.0.1",
-        "vue-cli-plugin-vuetify": "^0.5.0",
-        "vue-template-compiler": "^2.5.21",
-        "vuetify-loader": "^1.0.5"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/EthereumNetwork/website.git"
-    },
-    "keywords": [
-        "Ethereum"
-    ],
-    "bugs": {
-        "url": "https://github.com/EthereumNetwork/website/issues"
-    },
-    "homepage": "https://ethereum.network",
-    "eslintConfig": {
-        "root": true,
-        "env": {
-            "node": true
-        },
-        "extends": [
-            "plugin:vue/essential",
-            "eslint:recommended"
+    "pluginOptions": {
+      "prerenderSpa": {
+        "renderRoutes": [
+          "/"
         ],
-        "rules": {},
-        "parserOptions": {
-            "parser": "babel-eslint"
-        }
-    },
-    "postcss": {
-        "plugins": {
-            "autoprefixer": {}
-        }
-    },
-    "browserslist": [
-        "> 1%",
-        "last 2 versions",
-        "not ie <= 8"
-    ],
-    "vue": {
-        "pages": {
-            "index": {
-                "entry": "src/client/main.js"
-            }
-        }
+        "useRenderEvent": true,
+        "headless": true,
+        "onlyProduction": true
+      }
     }
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "bugs": {
+    "url": "https://github.com/EthereumNetwork/website/issues"
+  },
+  "homepage": "https://ethereum.network",
+  "keywords": [
+    "Ethereum"
+  ],
+  "license": "MPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EthereumNetwork/website.git"
+  }
 }
