@@ -52,15 +52,10 @@
     "vuetify-loader": "^1.0.5"
   },
   "vue": {
-    "pages": {
-      "index": {
-        "entry": "src/client/main.js"
-      }
-    },
     "pluginOptions": {
       "prerenderSpa": {
         "renderRoutes": [
-          "/"
+          "/", "/about"
         ],
         "useRenderEvent": true,
         "headless": true,
