@@ -46,7 +46,7 @@ function initMiddleware() {
   app.use(bodyParser.json({ limit: '50mb' }))
   app.use(bodyParser.raw({ type: '*/*', limit: '1000mb' }))
   app.use(methodOverride())
-  app.use(express.static('public/dist'))
+  app.use(express.static('dist'))
 
   app.use(compression())
   app.use(cors())
