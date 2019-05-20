@@ -2,9 +2,9 @@ import config from '../config/app'
 import * as express from './express'
 import logger from './logger'
 
-async function start() {
+async function start () {
   const app = express.init()
-  
+
   const port = config.get('port')
 
   const appStartMessage = () => {
