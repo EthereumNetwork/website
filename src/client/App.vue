@@ -61,8 +61,16 @@ export default {
         router: true,
         title: 'About',
         icon: 'domain',
+      }, {
+        href: 'projects',
+        router: true,
+        title: 'Projects',
+        icon: 'folder'
       }],
     };
+  },
+  mounted() {
+    this.$store.dispatch('fillDapp', 0)
   }
 }
 </script>
