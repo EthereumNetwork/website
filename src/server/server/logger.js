@@ -10,7 +10,6 @@ if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir)
 }
 
-
 const timestampFormat = () => {
   const date = new Date()
   return `${date.toDateString()} -lo ${date.toLocaleTimeString()}`

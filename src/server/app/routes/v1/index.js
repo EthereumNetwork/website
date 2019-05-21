@@ -8,4 +8,3 @@ const router = express.Router()
 router.use(`${NAMESPACE}/`, routes)
 
 export default router
-

@@ -1,3 +1,4 @@
+const path = require('path')
 const convict = require('convict')
 
 const config = convict({
@@ -38,13 +39,13 @@ const config = convict({
       format: String,
       default: 'debug',
       env: 'LOG_LEVEL'
-    },
+    }
   }
 })
 
 const env = config.get('env')
 
-config.loadFile(__dirname + '/environment/' + env + '.json')
+config.loadFile(path.join(__dirname, 'environment', env + '.json'))
 
 config.validate({ allowed: 'strict' })
 

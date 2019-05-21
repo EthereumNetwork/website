@@ -7,7 +7,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev": "yarn serve & yarn start",
+    "dev": "npm run serve & npm start",
+    "server-lint": "standard ./src/server/**/*.js",
+    "server-lint-fix": "standard --fix ./src/server/**/*.js",
     "start": "nodemon ./src/server/bin/dev"
   },
   "dependencies": {
@@ -44,6 +46,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "nodemon": "^1.19.0",
     "prerender-spa-plugin": "^3.2.1",
+    "standard": "^12.0.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "vue-cli-plugin-prerender-spa": "^1.1.5",
@@ -55,7 +58,8 @@
     "pluginOptions": {
       "prerenderSpa": {
         "renderRoutes": [
-          "/", "/about"
+          "/",
+          "/about"
         ],
         "useRenderEvent": true,
         "headless": true,

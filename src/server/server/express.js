@@ -13,7 +13,7 @@ import initRoutes from '../app/routes'
 // Initialize express app
 const app = express()
 
-function initMiddleware() {
+function initMiddleware () {
   // Helmet is a collection of 12 middleware to help set some security headers.
   app.use(helmet())
 
@@ -52,8 +52,8 @@ function initMiddleware() {
   app.use(cors())
 }
 
-function initErrorRoutes() {
-  app.use(function errorHandler(err, req, res, next) {
+function initErrorRoutes () {
+  app.use(function errorHandler (err, req, res, next) {
     if (res.headersSent) {
       return next(err)
     }
@@ -63,7 +63,7 @@ function initErrorRoutes() {
   })
 }
 
-export function init() {
+export function init () {
   // Initialize Express middleware
   initMiddleware()
 
