@@ -7,9 +7,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev": "yarn serve & yarn start",
+    "dev": "npm run serve & npm start",
     "server-lint": "standard ./src/server/**/*.js",
-    "server-lint-fix": "standard --fix ./src/server/**/*.js", 
+    "server-lint-fix": "standard --fix ./src/server/**/*.js",
     "start": "nodemon ./src/server/bin/dev"
   },
   "dependencies": {
