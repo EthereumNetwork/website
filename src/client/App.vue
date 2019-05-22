@@ -70,7 +70,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch('fillDapp', 0)
+    this.$store.dispatch('fillDapp', `?page=${this.$store.state.page}`)
   }
 }
 </script>
