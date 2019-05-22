@@ -1,69 +1,43 @@
 <template>
-  <v-container>
-    <form @submit="search" autocomplete="off">
-      <input type="text" placeholder="Search projects..." name="search">
-      <!-- <button type="submit">
-        <v-icon large color="green darken-2">search</v-icon>
-      </button> -->
+  <div>
+    <form @submit="search">
+      <input type="text" placeholder="Search projects" name="search" v-model="searchName">
+      <button type="submit"><i class="fa fa-search"></i></button>
     </form>
-    <v-layout row wrap>
-      <v-progress-circular v-if="this.dapps.length === 0 && !this.$store.state.errorPage" indeterminate color="primary"></v-progress-circular>
-      <ProjectCard v-else v-bind:key="dapp.name" v-for="dapp of this.fillDapps" v-bind:cardData="dapp"/>
-    </v-layout>
-    <NoProjectFound v-if="this.$store.state.errorPage"/>
-  </v-container>
+    <div class="card">
+      <ProjectCard v-bind:key="dapp.rank" v-for="dapp of dapps.items" v-bind:cardData="dapp"/>
+    </div>
+  </div>
 </template>
 
 <script>
-import ProjectCard from "../components/ProjectCard"
-import NoProjectFound from "../components/NoProjectFound"
+import ProjectCard from "../components/ProjectCard";
 
 export default {
   name: "projects",
   components: {
-    ProjectCard,
-    NoProjectFound
+    ProjectCard
   },
   data() {
     return {
-      dapps: [],
-      tempDapps: [],
-      doSeacrh: false,
+      dapps: {},
+      searchName: '',
+      tempSearchName: '',
       scrollToBottom: false
     }
   },
   mounted() {
     this.dapps = this.$store.state.dapps
-    this.tempDapps = this.dapps
+    this.tempSearchName = this.dapps
     this.scroll()
-    const input = document.querySelector('input')
-    input.addEventListener('input', this.search)
   },
   methods: {
-    async search (data) {
-      let value = data.srcElement.value
-      if (value === '') {
-        this.doSeacrh = false
-        this.dapps = this.tempDapps
-        this.$store.state.errorPage = false
-      }
-      if (value !== '') {
-        this.doSeacrh = true
-        this.dapps = []
-        this.dapps = await this.$store.getters.getDataByQuery(`?text=${value}`)
-        this.dapps = this.dapps.data.items
-      }
+    search () {
+      console.log(this.searchName)
     },
     scroll () {
       window.onscroll = () => {
-        let bottomOfWindow =
-          Math.max(
-            window.pageYOffset,
-            document.documentElement.scrollTop,
-            document.body.scrollTop
-          ) +
-            window.innerHeight ===
-          document.documentElement.offsetHeight
+        let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight
         if (bottomOfWindow) {
           this.scrollToBottom = true
         }
@@ -71,35 +45,55 @@ export default {
     }
   },
   watch: {
-    scrollToBottom: function() {
-      if (this.scrollToBottom && !this.doSeacrh) {
+    scrollToBottom: function () {
+      if (this.scrollToBottom) {
         this.scrollToBottom = false
-        this.$store.commit("incPage")
-        this.$store.dispatch("fillDapp", `?page=${this.$store.state.page}`)
-        this.dapps = this.$store.state.dapps
-        this.tempDapps = this.dapps
+        this.$store.commit('incPage')
+        this.$store.dispatch('fillDapp', this.$store.state.page)
       }
     }
-  },
-  computed: {
-    fillDapps() {
-      return this.dapps
-    }
   }
+  // updated: function () {
+  //   if (this.searchName === '') {
+  //     this.searchName = this.tempSearchName
+  //   }
+  //   else {
+  //     let result = {}
+  //     for (let dapp of this.dapps.items) {
+  //       let str = dapp.name.toLowerCase()
+  //       let re = new RegExp(this.searchName, 'g')
+  //       if (str.match(re)) {
+  //         for (let elem in dapp) {
+  //           result[elem] = dapp[elem]
+  //         } 
+  //       }
+  //     }
+  //     this.searchName = result
+  //   }
+  // }
 }
 </script>
 
 <style scoped>
+.card {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+
 form {
-  padding: 18px;
+  padding: 50px;
 }
 
 input {
+  margin-right: 100px;
   border-radius: 3px;
   padding: 10px;
   width: 100%;
+  box-shadow: inset 1px 1px 3px gray;
   outline: none;
-  background-color: rgb(243, 243, 243);
-  box-shadow: 0 1px 2px gray;
 }
 </style>

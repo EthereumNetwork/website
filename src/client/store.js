@@ -8,15 +8,12 @@ const API = 'https://api.stateofthedapps.com/dapps'
 
 export default new Vuex.Store({
   state: {
-    dapps: [],
-    page: 1,
-    errorPage: false
+    dapps: {},
+    page: 0
   },
   mutations: {
     fillDapp (state, data) {
-      for (let dapp of data.items) {
-        state.dapps = [...state.dapps, dapp]
-      }
+      state.dapps = data
     },
     incPage (state) {
       state.page++
@@ -24,22 +21,13 @@ export default new Vuex.Store({
   },
   actions: {
     async fillDapp ({ commit }, page) {
-      let data = await axios.get(API+page+'&limit=16')
+      let data = await axios.get(API+`?offset=${page}`)
       commit('fillDapp', data.data)
     }
   },
   getters: {
     getDapps (state) {
       return state.dapps
-    },
-    getDataByQuery: (state) => async (query) => {
-      let data = await axios.get(API+query)
-      if (data.data.items.length === 0) {
-        state.errorPage = true
-        return data
-      }
-      state.errorPage = false
-      return data
     }
   }
 })

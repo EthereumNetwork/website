@@ -1,15 +1,37 @@
 <template>
-  <v-flex xs12 sm3>
-    <v-card class="card">
-      <v-img :src="cardData.iconUrl" aspect-ratio="1" class="grey lighten-2"></v-img>
-      <v-card-title primary-title style="margin:0 !important; padding: 10px 0 0 0;">
-        <div class="titles">
-          <div style="font-size: inherit !important;" class="headline">{{cardData.name}}</div>
-          <span style="font-size: inherit !important;" class="grey--text">{{cardData.teaser}}</span>
-        </div>
-      </v-card-title>
-    </v-card>
-  </v-flex>
+  <!-- <div id="app">
+    <v-app id="inspire">
+      <v-container grid-list-md text-xs-center>
+        <v-layout row wrap>
+          <v-flex xs12 sm4>
+            <v-card>
+              <v-img class="white--text" height="auto" width="auto" :src="cardData.iconUrl"></v-img>
+              <v-layout fill-height>
+                <v-flex xs12 align-end flexbox>
+                  <span class="headline">{{ cardData.name }}</span>
+                </v-flex>
+              </v-layout>
+              <v-card-title>
+                <div style="margin:auto">
+                  <span>{{ cardData.teaser }}</span>
+                </div>
+              </v-card-title>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-app>
+  </div> -->
+
+  <div class="container">
+    <div class="imgContainer">
+      <img :src="cardData.iconUrl">
+    </div>
+    <div class="text">
+      <h4>{{ cardData.name }}</h4>
+      <p>{{ cardData.teaser }}</p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -18,46 +40,42 @@ export default {
   props: {
     cardData: Object
   }
-};
+}
 </script>
 
 <style scoped>
-.sm3 {
-  padding: 20px;
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+:root {
+  --card-height: 300px;
+  --card-width: 200px;
 }
-
-.card {
+.container {
+  box-shadow: 0 1px 5px gray;
+  height: 300px;
+  width: 200px;
   padding: 10px;
-  height: 100%;
-  background-color: rgb(243, 243, 243);
-  cursor: pointer;
-
-}
-
-.card:hover {
-  box-shadow: 0 10px 5px -5px gray;
-}
-
-.card:active {
-  box-shadow: none;
-}
-
-.grey {
   border-radius: 3px;
-  border: 1px solid rgb(143, 143, 143);
-  object-fit: contain;
+  background-color: rgb(243, 243, 243);
 }
 
-.titles {
-  white-space: nowrap; 
-  width: 100%; 
-  overflow: hidden;
-  text-overflow: ellipsis; 
+.imgContainer {
+  height: 200px !important;
 }
 
-.titles:hover {
-  overflow: visible;
-  word-wrap: break-word;
-  white-space: pre-wrap;
+img {
+  width: 100%;
+  height: 100%;
 }
+
+.text {
+  margin-top: 10px;
+  height:100px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.text h4 {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
 </style>
