@@ -78,12 +78,18 @@ export default {
     scroll() {
       window.onscroll = () => {
         let bottomOfWindow =
-          Math.max(
+          Math.floor(Math.max(
             window.pageYOffset,
             document.documentElement.scrollTop,
             document.body.scrollTop
           ) +
-            window.innerHeight ===
+            window.innerHeight) ===
+          document.documentElement.offsetHeight || Math.ceil(Math.max(
+            window.pageYOffset,
+            document.documentElement.scrollTop,
+            document.body.scrollTop
+          ) +
+            window.innerHeight) ===
           document.documentElement.offsetHeight
         if (bottomOfWindow) {
           this.scrollToBottom = true
