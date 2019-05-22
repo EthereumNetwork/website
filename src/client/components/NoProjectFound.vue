@@ -1,28 +1,34 @@
 <template>
   <div class="text-xs-center">
-    <div class="emoji"></div>
-    <div class="container">
+    <div class="emoji-container">
+      <div class="emoji"></div>
+    </div>
+    <div class="title-container">
       <h2 class="display-3 font-weight-thin">Sorry, no project found</h2>
     </div>
   </div>
 </template>
 
 <style scoped>
-.container {
+.text-xs-center {
+  padding: 100px;
+  display: inline-block;
   width: 100%;
-  height: 100vh;
-  text-align: center;
-}
-.display-3 {
-  margin-top: 15%;
   height: 100%;
 }
+.title-container {
+  margin-top: 108px;
+}
+
+.emoji-container {
+  transform: translate(50%);
+  width: 100%;
+  height: 100%;
+}
+
 .emoji {
   width: 20px;
   height: 20px;
-  position: absolute;
-  margin-top: 5%;
-  margin-left:40%;
   border-radius: 50%;
   background-color: black;
   box-shadow: 60px 0 0 0 black;

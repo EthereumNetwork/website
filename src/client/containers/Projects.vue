@@ -4,16 +4,17 @@
       <input type="text" placeholder="Search projects..." name="search">
     </form>
     <v-layout row wrap>
-      <v-progress-circular v-if="this.dapps.length === 0 && !this.$store.state.errorPage" indeterminate color="primary"></v-progress-circular>
+      <v-progress-circular v-if="this.dapps.length === 0 && !this.storeErrorPage()" indeterminate color="primary" class="progress"></v-progress-circular>
       <ProjectCard v-else v-bind:key="dapp.name" v-for="dapp of this.fillDapps" v-bind:cardData="dapp"/>
     </v-layout>
-    <NoProjectFound v-if="this.$store.state.errorPage"/>
+    <NoProjectFound v-if="this.storeErrorPage()"/>
   </v-container>
 </template>
 
 <script>
 import ProjectCard from '../components/ProjectCard'
 import NoProjectFound from '../components/NoProjectFound'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'projects',
@@ -21,34 +22,57 @@ export default {
     ProjectCard,
     NoProjectFound
   },
-  data() {
+  data () {
     return {
+      ...mapState({
+        storePage: 'page',
+        storeDapps: 'dapps',
+        storeErrorPage: 'errorPage'
+      }),
       dapps: [],
-      tempDapps: [],
       doSeacrh: false,
+      searchText: '',
       scrollToBottom: false
     }
   },
-  mounted() {
-    this.dapps = this.$store.state.dapps
-    this.tempDapps = this.dapps
+  mounted () {
+    this.dapps = this.storeDapps()
     this.scroll()
     const input = document.querySelector('input')
     input.addEventListener('input', this.search)
   },
   methods: {
-    async search(data) {
+    ...mapActions([
+      'fillDapp'
+    ]),
+    ...mapMutations([
+      'incPage',
+      'emptyDapps',
+      'setPageValue',
+      'setErrorPageStatus'
+    ]),
+    searchSetup () {
+      this.emptyDapps()
+      this.dapps = []
+      this.setPageValue(1)
+    },
+    async search (data) {
       let value = data.srcElement.value
+      this.searchText = value
+      this.searchSetup()
       if (value === '') {
-        this.doSeacrh = false
-        this.dapps = this.tempDapps
-        this.$store.state.errorPage = false
+        this.setErrorPageStatus(false)
+        await this.fillDapp({ page:`&page=${this.storePage()}` })
+        this.dapps = this.storeDapps()
       }
       if (value !== '') {
-        this.doSeacrh = true
-        this.dapps = []
-        this.dapps = await this.$store.getters.getDataByQuery(`?text=${value}`)
-        this.dapps = this.dapps.data.items
+        await this.fillDapp({ page: `&page=${this.storePage()}`, text: `&text=${this.searchText}` })
+        this.dapps = this.storeDapps()
+        if (this.dapps.length === 0) {
+          this.setErrorPageStatus(true)
+        } else {
+          this.setErrorPageStatus(false)
+        }
       }
     },
     scroll() {
@@ -69,12 +93,14 @@ export default {
   },
   watch: {
     scrollToBottom: function() {
-      if (this.scrollToBottom && !this.doSeacrh) {
+      if (this.scrollToBottom) {
         this.scrollToBottom = false
-        this.$store.commit('incPage')
-        this.$store.dispatch('fillDapp', `?page=${this.$store.state.page}`)
-        this.dapps = this.$store.state.dapps
-        this.tempDapps = this.dapps
+        this.incPage()
+        let queryText = ''
+        if (this.searchText !== '')
+          queryText = `&text=${this.searchText}`
+        this.fillDapp({ page:`&page=${this.storePage()}`, text: queryText })
+        this.dapps = this.storeDapps()
       }
     }
   },
@@ -98,5 +124,11 @@ input {
   outline: none;
   background-color: rgb(243, 243, 243);
   box-shadow: 0 1px 2px gray;
+}
+
+.progress {
+  display: inline;
+  margin-left: 48%;
+  margin-top: 30vh;
 }
 </style>
