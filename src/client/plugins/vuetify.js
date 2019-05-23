@@ -15,7 +15,7 @@ Vue.use(Vuetify, {
     VNavigationDrawer,
     VFooter,
     VToolbar,
-    VFadeTransition
+    VFadeTransition,
   },
   directives: {
     Ripple
