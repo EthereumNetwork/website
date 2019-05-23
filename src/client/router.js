@@ -25,6 +25,6 @@ export default new Router({
       path: '/projects',
       name: 'projects',
       component: () => import('./containers/Projects.vue')
-    } 
+    }
   ]
 })

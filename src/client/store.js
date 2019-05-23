@@ -10,25 +10,25 @@ export default new Vuex.Store({
   state: {
     dapps: [],
     page: 1,
-    errorPage: false
+    showError: false
   },
   mutations: {
-    fillDapp (state, data) {
+    fillDapps (state, data) {
       for (let dapp of data.items) {
         state.dapps = [...state.dapps, dapp]
       }
       state.dapps = state.dapps
-      .map(e => e['name'])
-      .map((e, i, final) => final.indexOf(e) === i && i)
-      .filter(e => state.dapps[e]).map(e => state.dapps[e]);
+        .map(e => e['name'])
+        .map((e, i, final) => final.indexOf(e) === i && i)
+        .filter(e => state.dapps[e]).map(e => state.dapps[e])
     },
-    incPage (state) {
+    incrementPageNo (state) {
       state.page++
     },
-    setErrorPageStatus (state, value) {
-      state.errorPage = value
+    toggleError (state, value) {
+      state.showError = value
     },
-    setPageValue (state, value) {
+    setPageNo (state, value) {
       state.page = value
     },
     emptyDapps (state) {
@@ -36,10 +36,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async fillDapp({ commit }, { page, text='' }) {
+    async fetchDapps ({ commit }, { page, text = '' }) {
       let data = await axios.get(API + '?limit=16' + page + text)
       if (data.data.items.length !== 0) {
-        commit('fillDapp', data.data)
+        commit('fillDapps', data.data)
       }
     }
   },

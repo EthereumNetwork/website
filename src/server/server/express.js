@@ -15,9 +15,6 @@ import initRoutes from '../app/routes'
 const app = express()
 
 function initMiddleware () {
-
-  app.use(express.static(path.join(__dirname, '../../../dist')));
-
   // Helmet is a collection of 12 middleware to help set some security headers.
   app.use(helmet())
 
@@ -50,7 +47,12 @@ function initMiddleware () {
   app.use(bodyParser.json({ limit: '50mb' }))
   app.use(bodyParser.raw({ type: '*/*', limit: '1000mb' }))
   app.use(methodOverride())
-  app.use(express.static('dist'))
+
+  // Set the views folder andview engine
+  app.set('views', path.join(__dirname, '/../../../dist'))
+  app.engine('html', require('ejs').renderFile)
+
+  app.use(express.static(path.join(__dirname, '/../../../dist')))
 
   app.use(compression())
   app.use(cors())
