@@ -6,6 +6,7 @@ import compression from 'compression'
 import helmet from 'helmet'
 import cors from 'cors'
 
+import path from 'path'
 import logger from './logger'
 import Responder from './expressResponder'
 import initRoutes from '../app/routes'
@@ -14,6 +15,9 @@ import initRoutes from '../app/routes'
 const app = express()
 
 function initMiddleware () {
+
+  app.use(express.static(path.join(__dirname, '../../../dist')));
+
   // Helmet is a collection of 12 middleware to help set some security headers.
   app.use(helmet())
 
