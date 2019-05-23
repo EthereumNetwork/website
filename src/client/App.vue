@@ -45,8 +45,6 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
-
 export default {
   name: 'App',
   data () {
@@ -67,19 +65,8 @@ export default {
         router: true,
         title: 'Projects',
         icon: 'folder'
-      }],
-      ...mapState({
-        storePage: 'page'
-      })
-    };
-  },
-  mounted() {
-    this.fillDapp({ page: `&page=${this.storePage()}`})
-  },
-  methods: {
-    ...mapActions([
-      'fillDapp'
-    ])
+      }]
+    }
   }
 }
 </script>

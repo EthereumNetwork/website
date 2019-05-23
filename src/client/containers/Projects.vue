@@ -35,7 +35,8 @@ export default {
       scrollToBottom: false
     }
   },
-  mounted () {
+  async mounted () {
+    await this.fillDapp({ page: `&page=${this.storePage()}`})
     this.dapps = this.storeDapps()
     this.scroll()
     const input = document.querySelector('input')
