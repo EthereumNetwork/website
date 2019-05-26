@@ -31,6 +31,8 @@ export default {
     }
   },
   async mounted () {
+    await this.fillDapp({ page: `&page=${this.storePage()}`})
+    this.dapps = this.storeDapps()
     this.scroll()
 
     await this.fetchDapps({ page: `&page=${this.pageNo}` })

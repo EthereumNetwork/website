@@ -15,6 +15,10 @@ Vue.use(Vuetify, {
   components: {
     VImg,
     VApp,
+    VNavigationDrawer,
+    VFooter,
+    VToolbar,
+    VFadeTransition,
     VCard,
     VFlex,
     VLayout,
