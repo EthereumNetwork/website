@@ -13,13 +13,14 @@
     "start": "nodemon ./src/server/bin/dev"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "convict": "^5.0.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-list-routes": "^0.1.4",
-    "fs": "^0.0.1-security",
+    "fs": "0.0.1-security",
     "helmet": "^3.18.0",
     "lodash": "^4.17.11",
     "material-design-icons-iconfont": "^3.0.3",
@@ -35,15 +36,17 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",
-    "@vue/cli-plugin-eslint": "^3.5.0",
+    "@vue/cli-plugin-eslint": "^3.7.0",
     "@vue/cli-plugin-pwa": "^3.5.1",
     "@vue/cli-service": "^3.5.0",
+    "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
-    "eslint": "^5.8.0",
+    "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "lint-staged": "^8.1.5",
     "nodemon": "^1.19.0",
     "prerender-spa-plugin": "^3.2.1",
     "standard": "^12.0.1",
@@ -59,7 +62,8 @@
       "prerenderSpa": {
         "renderRoutes": [
           "/",
-          "/about"
+          "/about",
+          "/projects"
         ],
         "useRenderEvent": true,
         "headless": true,
@@ -74,7 +78,8 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "@vue/standard"
     ],
     "rules": {},
     "parserOptions": {
@@ -94,11 +99,20 @@
   "bugs": {
     "url": "https://github.com/EthereumNetwork/website/issues"
   },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
   "homepage": "https://ethereum.network",
   "keywords": [
     "Ethereum"
   ],
   "license": "MPL-2.0",
+  "lint-staged": {
+    "*.{js,vue}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EthereumNetwork/website.git"

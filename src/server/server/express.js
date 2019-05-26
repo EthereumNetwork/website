@@ -6,6 +6,7 @@ import compression from 'compression'
 import helmet from 'helmet'
 import cors from 'cors'
 
+import path from 'path'
 import logger from './logger'
 import Responder from './expressResponder'
 import initRoutes from '../app/routes'
@@ -46,7 +47,12 @@ function initMiddleware () {
   app.use(bodyParser.json({ limit: '50mb' }))
   app.use(bodyParser.raw({ type: '*/*', limit: '1000mb' }))
   app.use(methodOverride())
-  app.use(express.static('dist'))
+
+  // Set the views folder andview engine
+  app.set('views', path.join(__dirname, '/../../../dist'))
+  app.engine('html', require('ejs').renderFile)
+
+  app.use(express.static(path.join(__dirname, '/../../../dist')))
 
   app.use(compression())
   app.use(cors())

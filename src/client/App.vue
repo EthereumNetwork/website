@@ -45,7 +45,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'App',
   data () {
@@ -55,14 +54,19 @@ export default {
         href: 'home',
         router: true,
         title: 'Home',
-        icon: 'home',
+        icon: 'home'
       }, {
         href: 'about',
         router: true,
         title: 'About',
-        icon: 'domain',
-      }],
-    };
+        icon: 'domain'
+      }, {
+        href: 'projects',
+        router: true,
+        title: 'Projects',
+        icon: 'folder'
+      }]
+    }
   }
 }
 </script>
