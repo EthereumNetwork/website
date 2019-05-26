@@ -15,7 +15,6 @@ async function start () {
     logger.info(`App Port : ${port}`)
     logger.info(`Process Id : ${process.pid}`)
   }
-
   app.listen(port, appStartMessage)
 }
 

@@ -1,13 +1,13 @@
 <template>
   <v-container>
     <form @submit="search" autocomplete="off">
-      <input type="text" placeholder="Search projects..." name="search">
+      <input type="text" placeholder="Search projects..." name="search" v-on:input="this.search">
     </form>
     <v-layout row wrap>
-      <v-progress-circular v-if="this.dapps.length === 0 && !this.storeErrorPage()" indeterminate color="primary" class="progress"></v-progress-circular>
-      <ProjectCard v-else v-bind:key="dapp.name" v-for="dapp of this.fillDapps" v-bind:cardData="dapp"/>
+      <v-progress-circular v-if="this.dapps.length === 0 && !this.showError" indeterminate color="primary" class="progress"></v-progress-circular>
+      <ProjectCard v-else v-bind:key="dapp.name" v-for="dapp of this.returnDapps" v-bind:cardData="dapp"/>
     </v-layout>
-    <NoProjectFound v-if="this.storeErrorPage()"/>
+    <NoProjectFound v-if="this.showError" v-bind:message="this.errorMessage"/>
   </v-container>
 </template>
 
@@ -24,74 +24,62 @@ export default {
   },
   data () {
     return {
-      ...mapState({
-        storePage: 'page',
-        storeDapps: 'dapps',
-        storeErrorPage: 'errorPage'
-      }),
       dapps: [],
-      doSeacrh: false,
       searchText: '',
-      scrollToBottom: false
+      scrollToBottom: false,
+      errorMessage: 'Sorry, no project found!'
     }
   },
   async mounted () {
     await this.fillDapp({ page: `&page=${this.storePage()}`})
     this.dapps = this.storeDapps()
     this.scroll()
-    const input = document.querySelector('input')
-    input.addEventListener('input', this.search)
+
+    await this.fetchDapps({ page: `&page=${this.pageNo}` })
+    this.dapps = this.storeDapps
   },
   methods: {
     ...mapActions([
-      'fillDapp'
+      'fetchDapps'
     ]),
     ...mapMutations([
-      'incPage',
       'emptyDapps',
-      'setPageValue',
-      'setErrorPageStatus'
+      'setPageNo',
+      'incrementPageNo',
+      'toggleError'
     ]),
     searchSetup () {
       this.emptyDapps()
       this.dapps = []
-      this.setPageValue(1)
+      this.setPageNo(1)
     },
     async search (data) {
       let value = data.srcElement.value
       this.searchText = value
       this.searchSetup()
-      if (value === '') {
-        this.setErrorPageStatus(false)
-        await this.fillDapp({ page:`&page=${this.storePage()}` })
-        this.dapps = this.storeDapps()
+
+      let searchQuery = {
+        page: `&page=${this.pageNo}`
       }
-      if (value !== '') {
-        await this.fillDapp({ page: `&page=${this.storePage()}`, text: `&text=${this.searchText}` })
-        this.dapps = this.storeDapps()
-        if (this.dapps.length === 0) {
-          this.setErrorPageStatus(true)
-        } else {
-          this.setErrorPageStatus(false)
-        }
-      }
+      value === '' ? this.toggleError(false) : searchQuery['text'] = `&text=${this.searchText}`
+      await this.fetchDapps(searchQuery)
+      this.dapps = this.storeDapps
+      this.dapps.length === 0 ? this.toggleError(true) : this.toggleError(false)
     },
-    scroll() {
+    scroll () {
       window.onscroll = () => {
+        let pageYOffset = window.pageYOffset
+        let windowHeight = window.innerHeight
+        let bodyScrollTop = document.body.scrollTop
+        let offsetHeight = document.documentElement.offsetHeight
+        let scrollTop = document.documentElement.scrollTop
+
+        let scrollHeight = Math.max(pageYOffset, scrollTop, bodyScrollTop) + windowHeight
+
         let bottomOfWindow =
-          Math.floor(Math.max(
-            window.pageYOffset,
-            document.documentElement.scrollTop,
-            document.body.scrollTop
-          ) +
-            window.innerHeight) ===
-          document.documentElement.offsetHeight || Math.ceil(Math.max(
-            window.pageYOffset,
-            document.documentElement.scrollTop,
-            document.body.scrollTop
-          ) +
-            window.innerHeight) ===
-          document.documentElement.offsetHeight
+          Math.floor(scrollHeight) === offsetHeight ||
+          Math.ceil(scrollHeight) === offsetHeight
+
         if (bottomOfWindow) {
           this.scrollToBottom = true
         }
@@ -99,20 +87,24 @@ export default {
     }
   },
   watch: {
-    scrollToBottom: function() {
+    scrollToBottom: function () {
       if (this.scrollToBottom) {
         this.scrollToBottom = false
-        this.incPage()
+        this.incrementPageNo()
         let queryText = ''
-        if (this.searchText !== '')
-          queryText = `&text=${this.searchText}`
-        this.fillDapp({ page:`&page=${this.storePage()}`, text: queryText })
-        this.dapps = this.storeDapps()
+        if (this.searchText !== '') { queryText = `&text=${this.searchText}` }
+        this.fetchDapps({ page: `&page=${this.pageNo}`, text: queryText })
+        this.dapps = this.storeDapps
       }
     }
   },
   computed: {
-    fillDapps() {
+    ...mapState({
+      pageNo: 'page',
+      storeDapps: 'dapps',
+      showError: 'showError'
+    }),
+    returnDapps () {
       return this.dapps
     }
   }

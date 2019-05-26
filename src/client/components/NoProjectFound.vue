@@ -4,10 +4,19 @@
       <div class="emoji"></div>
     </div>
     <div class="title-container">
-      <h2 class="display-3 font-weight-thin">Sorry, no project found</h2>
+      <h2 class="display-3 font-weight-thin">{{ message }}</h2>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'NoProjectFound',
+  props: {
+    message: String
+  }
+}
+</script>
 
 <style scoped>
 .text-xs-center {
@@ -22,7 +31,7 @@
 
 .emoji-container {
   transform: translate(50%);
-  width: 100%;
+  margin-left: -80px;
   height: 100%;
 }
 
