@@ -4,8 +4,11 @@ import Vuetify, {
   VImg,
   VCard,
   VFlex,
+  VAlert,
+  VSelect,
   VLayout,
   VContainer,
+  VDataTable,
   VCardTitle,
   VProgressCircular } from 'vuetify/lib'
 import 'vuetify/src/stylus/app.styl'
@@ -17,8 +20,11 @@ Vue.use(Vuetify, {
     VImg,
     VCard,
     VFlex,
+    VAlert,
+    VSelect,
     VLayout,
     VContainer,
+    VDataTable,
     VCardTitle,
     VProgressCircular
   },
