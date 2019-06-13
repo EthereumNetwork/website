@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuetify, {
-  VImg,
   VApp,
+  VImg,
   VCard,
   VFlex,
   VLayout,
@@ -13,12 +13,8 @@ import { Ripple } from 'vuetify/lib/directives'
 
 Vue.use(Vuetify, {
   components: {
-    VImg,
     VApp,
-    VNavigationDrawer,
-    VFooter,
-    VToolbar,
-    VFadeTransition,
+    VImg,
     VCard,
     VFlex,
     VLayout,
