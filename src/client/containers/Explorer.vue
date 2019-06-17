@@ -32,6 +32,7 @@ export default {
     }
   },
   async mounted () {
+    await this.setupWeb3()
     await this.setEthPrice()
     await this.setBlockNo()
     this.setData()
@@ -40,6 +41,7 @@ export default {
   },
   methods: {
     ...mapActions('explorer/', [
+      'setupWeb3',
       'setBlockNo',
       'setEthPrice',
       'setPageLoadTime',

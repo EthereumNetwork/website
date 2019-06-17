@@ -12,5 +12,5 @@ export default async function setupWeb3 () {
   } else {
     web3Provider = new Web3.providers.HttpProvider(`${RPC_URL}:${RPC_PORT}`)
   }
-  window.web3 = new Web3(web3Provider)
+  return new Web3(web3Provider)
 }
