@@ -1,0 +1,26 @@
+{
+  "connection": "default",
+  "collectionName": "titles",
+  "info": {
+    "name": "title",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "title_name": {
+      "type": "string"
+    },
+    "heading": {
+      "model": "heading",
+      "via": "titles"
+    },
+    "links": {
+      "collection": "links",
+      "via": "title"
+    }
+  }
+}

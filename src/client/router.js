@@ -30,6 +30,12 @@ export default new Router({
       path: '/explorer',
       name: 'explorer',
       component: () => import('./containers/Explorer.vue')
+    },
+    {
+      path: '/learn',
+      name: 'learn',
+      component: () => import('./containers/Learn.vue')
+
     }
   ]
 })

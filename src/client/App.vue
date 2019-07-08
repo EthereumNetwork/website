@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" app dark temporary>
+    <v-navigation-drawer v-model="drawer" app dark absolute>
       <v-list>
         <v-list-tile>
           <v-list-tile-content>
@@ -9,9 +9,9 @@
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-divider></v-divider>
+        <v-divider class='something' ></v-divider>
         <template v-for="(item, index) in items">
-          <v-list-tile :href="item.href" :to="{name: item.href}" :key="index">
+          <v-list-tile id="list" :href="item.href" :to="{name: item.href}" :key="index">
             <v-list-tile-action>
               <v-icon dark v-html="item.icon"></v-icon>
             </v-list-tile-action>
@@ -23,7 +23,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar app dark>
+    <v-toolbar app dark clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="headline">
         <span>Ethereum Network</span>
@@ -70,6 +70,11 @@ export default {
         router: true,
         title: 'Explorer',
         icon: 'explore'
+      }, {
+        href: 'learn',
+        router: true,
+        title: 'Learn',
+        icon: 'book'
       }]
     }
   }
@@ -79,4 +84,13 @@ export default {
 <style lang="stylus">
   @import '../../node_modules/vuetify/src/stylus/main';
   @import 'css/main.css';
+
+.something{
+    padding: 10px;
+    font-size: 200px;
+  }
+
+// #list{
+//   font-size: 18px;
+// }
 </style>

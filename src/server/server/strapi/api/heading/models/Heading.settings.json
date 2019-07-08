@@ -1,0 +1,32 @@
+{
+  "connection": "default",
+  "collectionName": "headings",
+  "info": {
+    "name": "heading",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "heading_name": {
+      "type": "string"
+    },
+    "titles": {
+      "collection": "title",
+      "via": "heading"
+    },
+    "description": {
+      "type": "text"
+    },
+    "links": {
+      "collection": "links",
+      "via": "heading"
+    }
+  }
+}
