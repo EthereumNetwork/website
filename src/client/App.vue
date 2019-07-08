@@ -65,6 +65,11 @@ export default {
         router: true,
         title: 'Projects',
         icon: 'folder'
+      }, {
+        href: 'explorer',
+        router: true,
+        title: 'Explorer',
+        icon: 'explore'
       }]
     }
   }

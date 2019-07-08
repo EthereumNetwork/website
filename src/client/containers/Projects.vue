@@ -4,14 +4,15 @@
       <input type="text" placeholder="Search projects..." name="search" v-on:input="this.search">
     </form>
     <v-layout row wrap>
-      <v-progress-circular v-if="this.dapps.length === 0 && !this.showError" indeterminate color="primary" class="progress"></v-progress-circular>
-      <ProjectCard v-else v-bind:key="dapp.name" v-for="dapp of this.returnDapps" v-bind:cardData="dapp"/>
+      <Progress :data="this.dapps" :showError="this.showError"/>
+      <ProjectCard :key="dapp.name" v-for="dapp of this.returnDapps" :cardData="dapp"/>
     </v-layout>
-    <NoProjectFound v-if="this.showError" v-bind:message="this.errorMessage"/>
+    <NoProjectFound v-if="this.showError" :message="this.errorMessage"/>
   </v-container>
 </template>
 
 <script>
+import Progress from '../components/Progress'
 import ProjectCard from '../components/ProjectCard'
 import NoProjectFound from '../components/NoProjectFound'
 import { mapState, mapActions, mapMutations } from 'vuex'
@@ -19,6 +20,7 @@ import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
   name: 'projects',
   components: {
+    Progress,
     ProjectCard,
     NoProjectFound
   },
@@ -39,10 +41,10 @@ export default {
     this.dapps = this.storeDapps
   },
   methods: {
-    ...mapActions([
+    ...mapActions('projects/', [
       'fetchDapps'
     ]),
-    ...mapMutations([
+    ...mapMutations('projects/', [
       'emptyDapps',
       'setPageNo',
       'incrementPageNo',
@@ -99,7 +101,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
+    ...mapState('projects/', {
       pageNo: 'page',
       storeDapps: 'dapps',
       showError: 'showError'
@@ -123,11 +125,5 @@ input {
   outline: none;
   background-color: rgb(243, 243, 243);
   box-shadow: 0 1px 2px gray;
-}
-
-.progress {
-  display: inline;
-  margin-left: 48%;
-  margin-top: 30vh;
 }
 </style>

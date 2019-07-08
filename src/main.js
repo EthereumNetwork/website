@@ -7,8 +7,11 @@ import store from './client/store'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
-Vue.config.productionTip = false
+import setupWeb3 from './client/web3'
 
+setupWeb3()
+
+Vue.config.productionTip = false
 new Vue({
   router,
   store,

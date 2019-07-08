@@ -25,6 +25,11 @@ export default new Router({
       path: '/projects',
       name: 'projects',
       component: () => import('./containers/Projects.vue')
+    },
+    {
+      path: '/explorer',
+      name: 'explorer',
+      component: () => import('./containers/Explorer.vue')
     }
   ]
 })
