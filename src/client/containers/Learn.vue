@@ -3,8 +3,7 @@
     <v-expansion-panel id="panel">
       <v-expansion-panel-content
         id="content"
-        v-for="(heading, key) in heads"
-        v-bind:key
+        v-for="(heading) in heads"
       >
         <template v-slot:header>
           <div>

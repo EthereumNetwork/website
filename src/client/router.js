@@ -36,6 +36,12 @@ export default new Router({
       name: 'learn',
       component: () => import('./containers/Learn.vue')
 
+    },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: () => import('./containers/Calendar.vue')
+
     }
   ]
 })

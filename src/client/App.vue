@@ -9,9 +9,9 @@
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-divider class='something' ></v-divider>
+        <v-divider id='list' ></v-divider>
         <template v-for="(item, index) in items">
-          <v-list-tile id="list" :href="item.href" :to="{name: item.href}" :key="index">
+          <v-list-tile :href="item.href" :to="{name: item.href}" :key="index">
             <v-list-tile-action>
               <v-icon dark v-html="item.icon"></v-icon>
             </v-list-tile-action>
@@ -75,6 +75,11 @@ export default {
         router: true,
         title: 'Learn',
         icon: 'book'
+      }, {
+        href: 'calendar',
+        router: true,
+        title: 'Calendar',
+        icon: 'event'
       }]
     }
   }
@@ -85,12 +90,8 @@ export default {
   @import '../../node_modules/vuetify/src/stylus/main';
   @import 'css/main.css';
 
-.something{
-    padding: 10px;
-    font-size: 200px;
-  }
-
-// #list{
-//   font-size: 18px;
-// }
+#list{
+  padding: 10px;
+  font-size: 200px;
+}
 </style>
