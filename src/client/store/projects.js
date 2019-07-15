@@ -35,7 +35,7 @@ export default ({
   },
   actions: {
     async fetchDapps ({ commit }, { page, text = '' }) {
-      let data = await axios.get(API + '?limit=16' + page + text)
+      let data = await axios.get(API + 'limit=16' + page + text)
       if (data.data.items.length !== 0) {
         commit('fillDapps', data.data)
       }
