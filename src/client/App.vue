@@ -22,13 +22,18 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-
     <v-toolbar app dark clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="headline">
         <span>Ethereum Network</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn
+        v-if="!connectButtonHidden"
+        @click='connectWEB3'
+      >
+        Connect To WEB3
+      </v-btn>
       <v-btn
         icon
         href="https://github.com/EthereumNetwork/website"
@@ -45,11 +50,15 @@
 </template>
 
 <script>
+import setupWeb3 from './web3'
+import Web3 from 'web3'
+
 export default {
   name: 'App',
   data () {
     return {
       drawer: false,
+      connectButtonHidden: false,
       items: [{
         href: 'home',
         router: true,
@@ -81,6 +90,19 @@ export default {
         title: 'Calendar',
         icon: 'event'
       }]
+    }
+  },
+  mounted () {
+    web3.eth.getAccounts((err, accounts) => {
+      if (accounts.length !== 0) { this.connectButtonHidden = true }
+    })
+    web3.currentProvider.publicConfigStore.on('update', (data) => {
+      if (data.selectedAddress) { this.connectButtonHidden = true } else { this.connectButtonHidden = false }
+    })
+  },
+  methods: {
+    async connectWEB3 () {
+      await setupWeb3()
     }
   }
 }
