@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" app dark temporary>
+    <v-navigation-drawer v-model="drawer" app dark absolute>
       <v-list>
         <v-list-tile>
           <v-list-tile-content>
@@ -9,7 +9,7 @@
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-divider></v-divider>
+        <v-divider id='list' ></v-divider>
         <template v-for="(item, index) in items">
           <v-list-tile :href="item.href" :to="{name: item.href}" :key="index">
             <v-list-tile-action>
@@ -22,13 +22,18 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-
-    <v-toolbar app dark>
+    <v-toolbar app dark clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="headline">
         <span>Ethereum Network</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn
+        v-if="!connectButtonHidden"
+        @click='connectWEB3'
+      >
+        Connect To WEB3
+      </v-btn>
       <v-btn
         icon
         href="https://github.com/EthereumNetwork/website"
@@ -45,11 +50,15 @@
 </template>
 
 <script>
+import setupWeb3 from './web3'
+import Web3 from 'web3'
+
 export default {
   name: 'App',
   data () {
     return {
       drawer: false,
+      connectButtonHidden: false,
       items: [{
         href: 'home',
         router: true,
@@ -70,7 +79,30 @@ export default {
         router: true,
         title: 'Explorer',
         icon: 'explore'
+      }, {
+        href: 'learn',
+        router: true,
+        title: 'Learn',
+        icon: 'book'
+      }, {
+        href: 'calendar',
+        router: true,
+        title: 'Calendar',
+        icon: 'event'
       }]
+    }
+  },
+  mounted () {
+    web3.eth.getAccounts((err, accounts) => {
+      if (accounts.length !== 0) { this.connectButtonHidden = true }
+    })
+    web3.currentProvider.publicConfigStore.on('update', (data) => {
+      if (data.selectedAddress) { this.connectButtonHidden = true } else { this.connectButtonHidden = false }
+    })
+  },
+  methods: {
+    async connectWEB3 () {
+      await setupWeb3()
     }
   }
 }
@@ -79,4 +111,9 @@ export default {
 <style lang="stylus">
   @import '../../node_modules/vuetify/src/stylus/main';
   @import 'css/main.css';
+
+#list{
+  padding: 10px;
+  font-size: 200px;
+}
 </style>

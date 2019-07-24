@@ -1,0 +1,35 @@
+{
+  "connection": "default",
+  "collectionName": "links",
+  "info": {
+    "name": "links",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "link_title": {
+      "type": "string"
+    },
+    "link_address": {
+      "type": "string"
+    },
+    "link_description": {
+      "type": "text"
+    },
+    "title": {
+      "model": "title",
+      "via": "links"
+    },
+    "heading": {
+      "model": "heading",
+      "via": "links"
+    }
+  }
+}
