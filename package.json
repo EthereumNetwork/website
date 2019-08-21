@@ -68,7 +68,9 @@
           "/",
           "/about",
           "/projects",
-          "/explorer"
+          "/explorer",
+          "/learn",
+          "/calendar"
         ],
         "useRenderEvent": true,
         "headless": true,
