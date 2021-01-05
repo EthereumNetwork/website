@@ -13,7 +13,7 @@
     "start": "nodemon ./src/server/bin/dev"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "convict": "^5.0.0",
